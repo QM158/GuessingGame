@@ -3,58 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Number Guess Game</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #eef;
-      padding: 20px;
-      max-width: 500px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-    }
-    #game-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #aaa;
-      margin-top: 20px;
-    }
-    #demo {
-      font-weight: bold;
-      color: #555;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-    #output {
-      margin-top: 15px;
-      font-size: 1rem;
-      font-weight: bold;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light">
 
-  <h1>Number Guess Game</h1>
-  <div id="game-box">
-    <div id="demo">Number hash: ###</div>
-    <div id="output">Guess a number between 1 and 10.</div>
-    <input type="number" id="userGuess" min="1" max="10" placeholder="Enter your guess">
-    <button onclick="makeGuess()">Submit Guess</button>
-    <button onclick="resetGame()">Play Again</button>
+  <div class="container py-5">
+    <h1 class="text-center mb-4">Number Guess Game</h1>
+
+    <div class="card shadow-lg">
+      <div class="card-body">
+        <div id="demo" class="text-center fw-bold mb-3">Number hash: ###</div>
+        <div id="output" class="alert alert-primary text-center">
+          Guess a number between 1 and 10.
+        </div>
+
+        <div class="mb-3">
+          <input type="number" id="userGuess" class="form-control" min="1" max="10" placeholder="Enter your guess">
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+          <button onclick="makeGuess()" class="btn btn-success">Submit Guess</button>
+          <button onclick="resetGame()" class="btn btn-secondary">Play Again</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -65,11 +37,12 @@
     function startGame() {
       randomNumber = Math.floor(Math.random() * 10) + 1;
       document.getElementById("demo").innerHTML = "Number hash: ###";
-      console.log(randomNumber); // For debugging, remove for final version
+      console.log(randomNumber); // For debugging only
       guessCount = 0;
       gameActive = true;
       document.getElementById("output").innerText = "Guess a number between 1 and 10.";
       document.getElementById("userGuess").value = "";
+      document.getElementById("output").className = "alert alert-primary text-center";
     }
 
     function makeGuess() {
@@ -78,17 +51,21 @@
       const guess = parseInt(document.getElementById("userGuess").value);
       if (isNaN(guess) || guess < 1 || guess > 10) {
         document.getElementById("output").innerText = "Please enter a valid number between 1 and 10.";
+        document.getElementById("output").className = "alert alert-warning text-center";
         return;
       }
 
       guessCount++;
       if (guess > randomNumber) {
         document.getElementById("output").innerText = "Your guess is too high. Please guess again.";
+        document.getElementById("output").className = "alert alert-danger text-center";
       } else if (guess < randomNumber) {
         document.getElementById("output").innerText = "Your guess is too low. Please guess again.";
+        document.getElementById("output").className = "alert alert-danger text-center";
       } else {
         document.getElementById("output").innerText =
           `Your guess was correct!\nYou made ${guessCount} guesses.`;
+        document.getElementById("output").className = "alert alert-success text-center";
         gameActive = false;
       }
 
@@ -99,9 +76,8 @@
       startGame();
     }
 
-    startGame(); // Initialize on load
+    startGame(); // Initialize game on page load
   </script>
 
 </body>
 </html>
-
