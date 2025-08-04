@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Guess Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    #game-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #aaa;
+      margin-top: 20px;
+    }
+    #demo {
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 15px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Number Guess Game</h1>
+  <div id="game-box">
+    <div id="demo">Number hash: ###</div>
+    <div id="output">Guess a number between 1 and 10.</div>
+    <input type="number" id="userGuess" min="1" max="10" placeholder="Enter your guess">
+    <button onclick="makeGuess()">Submit Guess</button>
+    <button onclick="resetGame()">Play Again</button>
+  </div>
+
+  <script>
+    let randomNumber;
+    let guessCount = 0;
+    let gameActive = true;
+
+    function startGame() {
+      randomNumber = Math.floor(Math.random() * 10) + 1;
+      document.getElementById("demo").innerHTML = "Number hash: ###";
+      console.log(randomNumber); // For debugging, remove for final version
+      guessCount = 0;
+      gameActive = true;
+      document.getElementById("output").innerText = "Guess a number between 1 and 10.";
+      document.getElementById("userGuess").value = "";
+    }
+
+    function makeGuess() {
+      if (!gameActive) return;
+
+      const guess = parseInt(document.getElementById("userGuess").value);
+      if (isNaN(guess) || guess < 1 || guess > 10) {
+        document.getElementById("output").innerText = "Please enter a valid number between 1 and 10.";
+        return;
+      }
+
+      guessCount++;
+      if (guess > randomNumber) {
+        document.getElementById("output").innerText = "Your guess is too high. Please guess again.";
+      } else if (guess < randomNumber) {
+        document.getElementById("output").innerText = "Your guess is too low. Please guess again.";
+      } else {
+        document.getElementById("output").innerText =
+          `Your guess was correct!\nYou made ${guessCount} guesses.`;
+        gameActive = false;
+      }
+
+      document.getElementById("userGuess").value = "";
+    }
+
+    function resetGame() {
+      startGame();
+    }
+
+    startGame(); // Initialize on load
+  </script>
+
+</body>
+</html>
 
