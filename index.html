@@ -76,8 +76,6 @@
         document.getElementById("output").innerText = "Your guess is too low. Please guess again.";
         document.getElementById("output").className = "alert alert-danger text-center";
       } else {
-        document.getElementById("output").innerText =
-          `Your guess was correct!\nYou guessed it in ${guessCount} guesses.`;
         document.getElementById("output").className = "alert alert-success text-center";
         gameActive = false;
       }
