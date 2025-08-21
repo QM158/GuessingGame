@@ -2,24 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Required viewport metatag -->
+  <meta name="author" content="Quinn Archibald"> <!-- Required author metatag -->
   <title>Number Guess Game</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
   <div class="container py-5">
+    <!-- Game Title -->
     <h1 class="text-center mb-4">Number Guess Game</h1>
 
+    <!-- Game Card -->
     <div class="card shadow-lg">
       <div class="card-body">
+        <!-- Output Message Area -->
         <div id="output" class="alert alert-primary text-center">
           Guess a number between 1 and 10.
         </div>
 
+        <!-- Input Field for User Guess -->
         <div class="mb-3">
           <input type="number" id="userGuess" class="form-control" min="1" max="10" placeholder="Enter your guess">
         </div>
 
+        <!-- Buttons for Submitting Guess and Resetting Game -->
         <div class="d-flex justify-content-center gap-3">
           <button onclick="makeGuess()" class="btn btn-success">Submit Guess</button>
           <button onclick="resetGame()" class="btn btn-secondary">Play Again</button>
@@ -29,24 +36,31 @@
   </div>
 
   <script>
+    // Declare game variables
     let randomNumber;
     let guessCount = 0;
     let gameActive = true;
 
+    // Initialize the game with a random number and reset UI
     function startGame() {
-      randomNumber = Math.floor(Math.random() * 10) + 1;
-      console.log(randomNumber);
+      randomNumber = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+      console.log(randomNumber); // For debugging purposes
       guessCount = 0;
       gameActive = true;
+
+      // Reset output message and input field
       document.getElementById("output").innerText = "Guess a number between 1 and 10.";
       document.getElementById("userGuess").value = "";
       document.getElementById("output").className = "alert alert-primary text-center";
     }
 
+    // Handle user's guess input
     function makeGuess() {
       if (!gameActive) return;
 
       const guess = parseInt(document.getElementById("userGuess").value);
+
+      // Validate input
       if (isNaN(guess) || guess < 1 || guess > 10) {
         document.getElementById("output").innerText = "Please enter a valid number between 1 and 10.";
         document.getElementById("output").className = "alert alert-warning text-center";
@@ -54,6 +68,8 @@
       }
 
       guessCount++;
+
+      // Compare guess to random number and update output
       if (guess > randomNumber) {
         document.getElementById("output").innerText = "Your guess is too high. Please guess again.";
         document.getElementById("output").className = "alert alert-danger text-center";
@@ -67,14 +83,17 @@
         gameActive = false;
       }
 
+      // Clear input field
       document.getElementById("userGuess").value = "";
     }
 
+    // Reset the game when "Play Again" is clicked
     function resetGame() {
       startGame();
     }
 
-    startGame(); // Initialize game on page load
+    // Start the game when the page loads
+    startGame();
   </script>
 
 </body>
