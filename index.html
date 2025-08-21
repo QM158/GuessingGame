@@ -6,8 +6,14 @@
   <meta name="author" content="Quinn Archibald"> <!-- Required author metatag -->
   <title>Number Guess Game</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+        background-color: white;
+    }
+  </style>
 </head>
 <body class="bg-light">
+
 
   <div class="container py-5">
     
@@ -75,8 +81,10 @@
       } else if (guess < randomNumber) {
         document.getElementById("output").innerText = "Your guess is too low. Please guess again.";
         document.getElementById("output").className = "alert alert-danger text-center";
-      } 
-    }
+      } else {
+        document.getElementById("output").className = "alert alert-success text-center";
+        gameActive = false;
+      }
 
       // Clear input field
       document.getElementById("userGuess").value = "";
@@ -93,4 +101,3 @@
 
 </body>
 </html>
-
